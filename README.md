@@ -11,13 +11,13 @@ Se tiver dúvidas, entre em contato através do email: administrativo03@dolpenge
 Os dashboards são atualizados Diariamente. O responsável pela manutenção é a Isabella Leticy.
 
 # Fontes de Dados
-Planilhas WEB  
-Excel Desktop  
-Banco de Dados: MariaDB  
+* Planilhas WEB  
+* Excel Desktop  
+* Banco de Dados: MariaDB  
 Obs.: As views utilizadas nos relatórios são retiradas utilizando linguagem SQL e gerenciadas pelo departamento de desenvolvimento.
 
 # Intruções de Uso
-Após a publicação do relatório no PowerBi Service é necessário o compartilhamento para os tomadores de decisões;
+Após a publicação do relatório no PowerBi Service é necessário o compartilhamento para os tomadores de decisões;  
 1º Passo: Clique no link compartilhado;  
 2º Passo: Utilize os filtros para segmentar os dados da sua escolha;  
 3º Passo: Clique nos gráficos para detalhes adicionais;

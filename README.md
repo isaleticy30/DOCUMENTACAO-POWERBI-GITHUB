@@ -1,6 +1,7 @@
 # Dashboards
 Documentação feita para guiar os usuários finais, equipes técnicas e liderança sobre os procedimentos abordados referente aos relatórios.
-Necessário ter conhecimento em linguagem M, DAX, relacionamento e ETL em nível básico e/ou intermediário, para melhor entendimento das abordagens escolhidas.
+Necessário ter conhecimento em linguagem M, DAX, relacionamento e ETL em nível básico e/ou intermediário, para melhor entendimento 
+das abordagens escolhidas.
 A documentação será técnica, (com código e modelo de dados) e funcional (explicação sobre os KPIs e como usar).
 
 # Contato

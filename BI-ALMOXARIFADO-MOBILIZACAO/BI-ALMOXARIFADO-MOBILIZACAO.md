@@ -633,4 +633,4 @@ __Segmentadores de Dados (Filtros dinâmicos)__
     * Morrinhos  
     * Pires do Rio  
 3. Função  
-4. Data da movimentação do item
+4. Data da movimentaçao do item

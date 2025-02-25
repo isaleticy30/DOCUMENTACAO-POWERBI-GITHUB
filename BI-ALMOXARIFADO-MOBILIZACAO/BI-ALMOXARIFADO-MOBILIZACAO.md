@@ -5,9 +5,9 @@ Obs.: Esse relatório trata apenas de EPIs por movimentação destino (Colaborad
 # Fonte de Dados
 __Banco de Dados:__ MariaDB  
 Views:
-> almoxarifado_movimentacoes
-> pessoas
-> epiepc_obrigatorios
+* almoxarifado_movimentacoes  
+* pessoas  
+* epiepc_obrigatorios  
 
 # Agendamento de Atualização
 Fuso Horário (UTC-03:00) Brasília  
@@ -15,9 +15,9 @@ Frequência das Atualizações: Semanal (Segunda a Sexta)
 Hora de Atualização: 10:00 AM
 
 # Processo de ETL (Extração, Transformação e Carregamento)
-> View almoxarifado_movimentacoes:  
+__View almoxarifado_movimentacoes:__  
 Código M dos procedimentos no Power Query:  
-let  
+> let  
     Fonte = MariaDB.Contents("sgddolp.com", null, null),  
     dolpenge_views_Database = Fonte{[Name="dolpenge_views",Kind="Database"]}[Data],  
     view_power_bi_almoxarifado_movimentacoes_View = dolpenge_views_Database{[Name="view_power_bi_almoxarifado_movimentacoes",Kind="View"]}[Data],  
@@ -40,13 +40,13 @@ let
 in  
     #"Valor Substituído"  
 
-Explicação dos procedimentos:  
+__Explicação dos procedimentos:__  
 1. Conexão com a Fonte de Dados  
 * O código se conecta ao banco de dados MariaDB no servidor "sgddolp.com".  
 * Acessa o banco de dados chamado dolpenge_views.  
 * Obtém os dados da view chamada view_power_bi_almoxarifado_movimentacoes, que provavelmente já contém dados processados para análise no Power BI.  
 
-2. Filtro de Linhas  
+2. __Filtro de Linhas__  
 * Mantém apenas os registros onde grupo é "EPI" (Equipamentos de Proteção Individual).  
 * Exclui registros das unidades "CUIABÁ - MT", "PALMAS - TO" e "VÁRZEA GRANDE - MT".  
 * Filtra os dados com base na data:  
@@ -56,28 +56,28 @@ Explicação dos procedimentos:
 * Mantém apenas as movimentações onde dec_destino é "PESSOA".  
 * Mantém apenas registros onde cancelado está "Ativo".
 
-3. Junção com a Tabela de Pessoas  
+3. __Junção com a Tabela de Pessoas__  
 * Faz uma junção (JOIN) com a tabela PESSOAS  
 * Usa a coluna id_destino da tabela principal e a coluna ID da tabela PESSOAS.  
 * Apenas registros correspondentes em ambas as tabelas são mantidos (JoinKind.Inner).  
 * Expande as colunas da tabela PESSOAS para adicionar informações sobre a função da pessoa e sua situação.
 
-4. Removendo Colunas Desnecessárias  
+4. __Removendo Colunas Desnecessárias__  
 * Remove colunas irrelevantes para a análise final.
 
-5. enomeando Colunas  
+5. __Renomeando Colunas__  
 * Renomeia várias colunas para nomes mais intuitivos.
 
-6. Substituição de Valores  
+6. __Substituição de Valores__  
 * Substitui valores na coluna Assinatura:  
 * Se houver "Aceito", ele será alterado para "Assinado".
 
-7. Retorno Final  
+7. __Retorno Final__  
 Retorna a tabela final já transformada!
 
-> View pessoas:  
+__View pessoas:__  
 Código M dos procedimentos no Power Query:  
-let  
+>let  
     Fonte = MariaDB.Contents("sgddolp.com", null, null),  
     dolpenge_views_Database = Fonte{[Name="dolpenge_views",Kind="Database"]}[Data],  
     view_power_bi_pessoas_View = dolpenge_views_Database{[Name="view_power_bi_pessoas",Kind="View"]}[Data],  

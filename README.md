@@ -11,9 +11,9 @@ Se tiver dúvidas, entre em contato através do email: administrativo03@dolpenge
 Os dashboards são atualizados diariamente. O responsável pela manutenção é a Isabella Leticy.
 
 # Fontes de Dados
-> Planilhas WEB  
-> Excel Desktop  
-> Banco de Dados: MariaDB  
+* Planilhas WEB  
+* Excel Desktop  
+* Banco de Dados: MariaDB  
 Obs.: As views utilizadas nos relatórios são retiradas utilizando linguagem SQL e gerenciadas pelo departamento de desenvolvimento.
 
 # Instruções de Uso

@@ -108,7 +108,6 @@ Código M dos procedimentos no Power Query:
     #"Linhas Filtradas" = Table.SelectRows(#"Colunas Renomeadas", each ([Status] = "ATIVO")),  
     // Definindo a data base (primeira segunda-feira de Dezembro de 2024)  
     DataBase = #date(2024, 12, 2),  
-
     // Função para calcular a semana correta  
     calcularSemana = (dataAdmissao as date) =>  
     let  
@@ -120,7 +119,6 @@ Código M dos procedimentos no Power Query:
         Semana = Number.RoundDown(DiferencaEmDias / 7) + 1  
     in  
         Semana,  
-
     // Aplicando a função de semana na tabela  
     #"Semana Admissão" = Table.AddColumn(#"Linhas Filtradas", "Semana Admissão", each calcularSemana([Dt_Admissao]), Int64.Type),  
     #"Linhas Filtradas1" = Table.SelectRows(#"Semana Admissão", each ([Função] = "ELETRICISTA DE LINHA VIVA" or [Função] = "ENCARREGADO"  
@@ -190,11 +188,9 @@ Código M dos procedimentos no Power Query:
     {"empresa", "Empresa"}, {"tipo_funcao", "Tipo_Funcao"}, {"biometria", "Biometria"}, {"login", "Login"}, {"id_superior", "ID_Superior"},  
     {"superior_imediato", "Superior_Imediato"}}),  
     #"Linhas Filtradas" = Table.SelectRows(#"Colunas Renomeadas", each ([Base] <> "CUIABÁ - MT" and [Base] <> "PALMAS - TO" and [Base] <> "RIO VERDE - GO")  
-    and ([Função] = "INSTALADOR ELÉTRICO" or [Função] = "SUPERVISOR")),
-    
+    and ([Função] = "INSTALADOR ELÉTRICO" or [Função] = "SUPERVISOR")),  
     // Definindo a data base (primeira segunda-feira de Dezembro de 2024)  
-    DataBase = #date(2024, 12, 2),
-
+    DataBase = #date(2024, 12, 2),  
     // Função para calcular a semana correta  
     calcularSemana = (dataAdmissao as date) =>  
     let  
@@ -205,8 +201,7 @@ Código M dos procedimentos no Power Query:
         // Cálculo da semana, arredondado  
         Semana = Number.RoundDown(DiferencaEmDias / 7) + 1  
     in  
-        Semana,
-
+        Semana,  
     // Aplicando a função de semana na tabela  
     #"Semana Admissão" = Table.AddColumn(#"Linhas Filtradas", "Semana Admissão", each calcularSemana([Dt_Admissao]), Int64.Type),  
     #"Valor Substituído" = Table.ReplaceValue(#"Semana Admissão",null,#date(1900, 1, 1),Replacer.ReplaceValue,{"Dt_Admissao"}),  
@@ -328,11 +323,9 @@ Código M dos procedimentos no Power Query:
     {"CNH", type text}, {"QUALIFICAÇÃO TÉCNICA", type text}}),  
     #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado", "SemanaAdmissão", each let  
     // Cria uma lista de datas com as colunas "DATA DO ASO" e "ADMISSÃO"  
-    TodasDatas = { [DATA DO ASO], [ADMISSÃO] },
-
+    TodasDatas = { [DATA DO ASO], [ADMISSÃO] },  
     // Ordena as datas de forma crescente  
-    Ordenadas = List.Sort(TodasDatas, Order.Ascending),
-
+    Ordenadas = List.Sort(TodasDatas, Order.Ascending),  
     // Determina a "SemanaAdmissão" com base na posição das datas ordenadas  
     SemanaAdmissao = List.PositionOf(Ordenadas, List.Min(Ordenadas), Occurrence.First) + 1  
 in  
@@ -475,3 +468,46 @@ Motivo: As colunas foram consideradas irrelevantes para a análise.
 
 4. Retorna a Tabela Final
 * Define o resultado final da consulta, que será carregado no Power BI.
+
+__Tabela criada com DAX:__ .Pessoas_TreinamentosPart  
+Código DAX dos procedimentos:  
+>.Pessoas_TreinamentosPart = 
+UNION(
+    SELECTCOLUMNS(
+        FILTER(
+            'PESSOAS',
+            NOT 'PESSOAS'[Colaborador] IN DISTINCT('TREINAMENTOS_PARTICIPANTES'[participante])
+        ),
+        "Colaborador", 'PESSOAS'[Colaborador],
+        "Status", "Pessoas",
+        "Assinatura", BLANK(),
+        "Dt_Admissão", 'PESSOAS'[Dt_Admissao],
+        "Carga Horária", BLANK(),
+        "dataFim", BLANK(),
+        "dataInicio", BLANK(),
+        "horaFim", BLANK(),
+        "horaInicio", BLANK(),
+        "id_Certificado", BLANK(),
+        "id_Instrutor", BLANK(),
+        "Instrutor", BLANK(),
+        "id_Lista", BLANK()
+    ),
+    SELECTCOLUMNS(
+        'TREINAMENTOS_PARTICIPANTES',
+        "Colaborador", 'TREINAMENTOS_PARTICIPANTES'[participante],
+        "Status", "Treinamentos Participantes",
+        "Assinatura", 'TREINAMENTOS_PARTICIPANTES'[assinado],
+        "Dt_Admissão", 'TREINAMENTOS_PARTICIPANTES'[PESSOAS.Dt_Admissao],
+        "Carga Horária", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.CargaHorária],
+        "dataFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataFim],
+        "dataInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataInicio],
+        "horaFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaFim],
+        "horaInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaInicio],
+        "id_Certificado", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_certificado],
+        "id_Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_instrutor],
+        "Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.instrutor],
+        "id_Lista", 'TREINAMENTOS_PARTICIPANTES'[idLista]
+    )
+
+__Explicação dos procedimentos:__  
+Essa tabela combina informações sobre colaboradores e treinamentos em que participaram, diferenciando aqueles que participaram de treinamentos dos que não participaram.

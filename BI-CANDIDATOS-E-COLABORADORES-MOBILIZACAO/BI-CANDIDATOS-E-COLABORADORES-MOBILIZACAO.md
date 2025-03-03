@@ -1293,7 +1293,7 @@ Configuração especial de elementos da célula:
     * "OK" → ícone V
     * "Assinar" → ícone !
 
-Legenda dos Ícones
-X = Falta Itens
-! = Pendências
+Legenda dos Ícones  
+X = Falta Itens  
+! = Pendências  
 V = OK

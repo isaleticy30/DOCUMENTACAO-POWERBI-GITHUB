@@ -471,43 +471,43 @@ Motivo: As colunas foram consideradas irrelevantes para a análise.
 
 __Tabela criada com DAX:__ .Pessoas_TreinamentosPart  
 Código DAX dos procedimentos:  
->.Pessoas_TreinamentosPart = 
-UNION(
-    SELECTCOLUMNS(
-        FILTER(
-            'PESSOAS',
-            NOT 'PESSOAS'[Colaborador] IN DISTINCT('TREINAMENTOS_PARTICIPANTES'[participante])
-        ),
-        "Colaborador", 'PESSOAS'[Colaborador],
-        "Status", "Pessoas",
-        "Assinatura", BLANK(),
-        "Dt_Admissão", 'PESSOAS'[Dt_Admissao],
-        "Carga Horária", BLANK(),
-        "dataFim", BLANK(),
-        "dataInicio", BLANK(),
-        "horaFim", BLANK(),
-        "horaInicio", BLANK(),
-        "id_Certificado", BLANK(),
-        "id_Instrutor", BLANK(),
-        "Instrutor", BLANK(),
-        "id_Lista", BLANK()
-    ),
-    SELECTCOLUMNS(
-        'TREINAMENTOS_PARTICIPANTES',
-        "Colaborador", 'TREINAMENTOS_PARTICIPANTES'[participante],
-        "Status", "Treinamentos Participantes",
-        "Assinatura", 'TREINAMENTOS_PARTICIPANTES'[assinado],
-        "Dt_Admissão", 'TREINAMENTOS_PARTICIPANTES'[PESSOAS.Dt_Admissao],
-        "Carga Horária", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.CargaHorária],
-        "dataFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataFim],
-        "dataInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataInicio],
-        "horaFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaFim],
-        "horaInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaInicio],
-        "id_Certificado", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_certificado],
-        "id_Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_instrutor],
-        "Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.instrutor],
-        "id_Lista", 'TREINAMENTOS_PARTICIPANTES'[idLista]
+>.Pessoas_TreinamentosPart =  
+UNION(  
+    SELECTCOLUMNS(  
+        FILTER(  
+            'PESSOAS',  
+            NOT 'PESSOAS'[Colaborador] IN DISTINCT('TREINAMENTOS_PARTICIPANTES'[participante])  
+        ),  
+        "Colaborador", 'PESSOAS'[Colaborador],  
+        "Status", "Pessoas",  
+        "Assinatura", BLANK(),  
+        "Dt_Admissão", 'PESSOAS'[Dt_Admissao],  
+        "Carga Horária", BLANK(),  
+        "dataFim", BLANK(),  
+        "dataInicio", BLANK(),  
+        "horaFim", BLANK(),  
+        "horaInicio", BLANK(),  
+        "id_Certificado", BLANK(),  
+        "id_Instrutor", BLANK(),  
+        "Instrutor", BLANK(),  
+        "id_Lista", BLANK()  
+    ),  
+    SELECTCOLUMNS(  
+        'TREINAMENTOS_PARTICIPANTES',  
+        "Colaborador", 'TREINAMENTOS_PARTICIPANTES'[participante],  
+        "Status", "Treinamentos Participantes",  
+        "Assinatura", 'TREINAMENTOS_PARTICIPANTES'[assinado],  
+        "Dt_Admissão", 'TREINAMENTOS_PARTICIPANTES'[PESSOAS.Dt_Admissao],  
+        "Carga Horária", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.CargaHorária],  
+        "dataFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataFim],  
+        "dataInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.dataInicio],  
+        "horaFim", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaFim],  
+        "horaInicio", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.horaInicio],  
+        "id_Certificado", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_certificado],  
+        "id_Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.id_instrutor],  
+        "Instrutor", 'TREINAMENTOS_PARTICIPANTES'[TREINAMENTOS.instrutor],  
+        "id_Lista", 'TREINAMENTOS_PARTICIPANTES'[idLista]  
     )
 
 __Explicação dos procedimentos:__  
-Essa tabela combina informações sobre colaboradores e treinamentos em que participaram, diferenciando aqueles que participaram de treinamentos dos que não participaram.
+Essa tabela combina informações sobre colaboradores e treinamentos em que participaram, diferenciando aqueles que participaram de treinamentos dos que não participaram.  
